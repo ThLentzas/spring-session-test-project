@@ -17,7 +17,11 @@ import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import java.io.Serializable;
 
-
+/*
+    The reason why both Role and User Entities have to implement Serializable is because they are part of the
+    authentication object of the Security Context that is stored in Redis as the value of the SPRING_SECURITY_CONTEXT
+    KEY
+ */
 @Entity
 @Table(name = "roles")
 @Getter
