@@ -23,13 +23,13 @@ class AuthController {
     @PostMapping("/register")
     void registerUser(@RequestBody RegisterRequest request, HttpSession session) {
         Authentication authentication = this.authService.registerUser(request);
-        setupContext(authentication, session);
+        setContext(authentication, session);
     }
 
     @PostMapping("/login")
     void loginUser(@RequestBody LoginRequest request, HttpSession session) {
         Authentication authentication = this.authService.loginUser(request);
-        setupContext(authentication, session);
+        setContext(authentication, session);
     }
 
     /*
@@ -44,7 +44,7 @@ class AuthController {
         we could extract the Spring Security Context key attribute and that won't be null. Otherwise, it would result in
         403 FORBIDDEN
      */
-    private void setupContext(Authentication authentication, HttpSession session) {
+    private static void setContext(Authentication authentication, HttpSession session) {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
