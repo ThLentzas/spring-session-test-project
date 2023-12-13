@@ -1,5 +1,7 @@
 package com.example.session.auth;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,15 +23,19 @@ class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    void registerUser(@RequestBody RegisterRequest request, HttpSession session) {
+    ResponseEntity<Void> registerUser(@RequestBody RegisterRequest request, HttpSession session) {
         Authentication authentication = this.authService.registerUser(request);
         setContext(authentication, session);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
-    void loginUser(@RequestBody LoginRequest request, HttpSession session) {
+    ResponseEntity<Void> loginUser(@RequestBody LoginRequest request, HttpSession session) {
         Authentication authentication = this.authService.loginUser(request);
         setContext(authentication, session);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /*

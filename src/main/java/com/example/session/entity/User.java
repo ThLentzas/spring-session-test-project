@@ -37,7 +37,7 @@ public class User implements Serializable {
     private String password;
     /*
         If we leave the default type of LAZY it will fail to get the roles. The UserDetails will be called and the
-        transaction will end. In another session will try to grab the authorities but it will fail since the transaction
+        transaction will end. In another session will try to grab the authorities, but it will fail since the transaction
         is closed.
      */
     @ManyToMany(fetch = FetchType.EAGER)
